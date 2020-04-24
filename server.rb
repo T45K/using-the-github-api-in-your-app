@@ -46,6 +46,10 @@ class GHAapp < Sinatra::Application
       if @payload['action'] === 'opened'
         handle_issue_opened_event(@payload)
       end
+    # when pull_request
+    when 'pull_request'
+      if @payload['action'] === 'opened'
+        handle_pull_request_opend_event(@payload)
     end
 
     200 # success status
@@ -53,6 +57,13 @@ class GHAapp < Sinatra::Application
 
 
   helpers do
+
+    # When a pull request is opend, add a label
+    def handle_pull_request_opend_event(payload)
+      repo = payload['repository']['full_name']
+      pull_requeset_number = payload['pull_requeset']['number']
+      @installation_client.add_labels_to_a_pull_request(repo, pull_requeset_number, ['needs-response'])
+    end
 
     # When an issue is opened, add a label
     def handle_issue_opened_event(payload)
