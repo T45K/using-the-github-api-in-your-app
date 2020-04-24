@@ -66,6 +66,7 @@ class GHAapp < Sinatra::Application
       pull_requeset_number = payload['pull_request']['number']
       logger.debug pull_requeset_number
       @installation_client.add_labels_to_an_issue(repo, pull_requeset_number, ['needs-response'])
+      @installation_client.add_comment(repo, pull_requeset_number, 'f*ck')
     end
 
     # When an issue is opened, add a label
