@@ -63,7 +63,7 @@ class GHAapp < Sinatra::Application
     def handle_pull_request_opend_event(payload)
       logger.debug 'pull request'
       repo = payload['repository']['full_name']
-      pull_requeset_number = payload['pull_requeset']['number']
+      pull_requeset_number = payload['pull_request']['number']
       logger.debug pull_requeset_number
       @installation_client.add_labels_to_an_issue(repo, pull_requeset_number, ['needs-response'])
     end
