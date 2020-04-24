@@ -60,9 +60,11 @@ class GHAapp < Sinatra::Application
 
     # When a pull request is opend, add a label
     def handle_pull_request_opend_event(payload)
+      logger.debug 'pull request'
       repo = payload['repository']['full_name']
       pull_requeset_number = payload['pull_requeset']['number']
-      @installation_client.add_labels_to_a_pull_request(repo, pull_requeset_number, ['needs-response'])
+      logger.debug pull_requeset_number
+      @installation_client.add_labels(repo, pull_requeset_number, ['needs-response'])
     end
 
     # When an issue is opened, add a label
