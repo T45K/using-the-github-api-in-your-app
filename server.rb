@@ -50,6 +50,7 @@ class GHAapp < Sinatra::Application
     when 'pull_request'
       if @payload['action'] === 'opened'
         handle_pull_request_opend_event(@payload)
+      end
     end
 
     200 # success status
